@@ -1,6 +1,7 @@
+#!/bin/bash
 . checks.sh
 
-#!/bin/bash
-
 function scoredVulns {
+    vuln1=$(packageInstalled "chkrootkit", "Package chkrootkit has been installed")
 }
+exit
