@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function packageInstalled {
 	local pkg="$1"
 	local ret=$false
@@ -196,10 +198,10 @@ function permissionIs {
 }
 
 function permissionIsNot {
-    local package=$1
+    local file=$1
     local permission=$2
     local ret=$true
-    octal=$(stat -c "%a %n" | grep -E "[0-9]+")
+    octal=$(stat -c "%a %n" $file | grep -E "[0-9]+")
     if [ "$octal" == "$permission" ]; then
         ret=$false
     fi
