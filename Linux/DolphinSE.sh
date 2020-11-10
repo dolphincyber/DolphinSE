@@ -2,3 +2,4 @@
 
 ./scoring.sh
 ./genSE.sh
+exit
