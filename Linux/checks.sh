@@ -3,36 +3,36 @@
 function packageInstalled {
 	local pkg="$1"
 	local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     if dpkg -s "$pkg" > /dev/null 2>&1; then
 		ret="true"
 	fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function packageInstalledNot {
 	local pkg="$1"
 	local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     if dpkg -s "$pkg" > /dev/null 2>&1; then
 		ret="false"
 	fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function serviceUp {
 	local svc="$1"
 	local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
 	status=$(systemctl is-active "$svc") 
@@ -52,14 +52,14 @@ function serviceUp {
 		fi
 	fi
 	echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function serviceUpNot {
 	local svc="$1"
 	local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
 	status=$(systemctl is-active "$svc") 
@@ -80,14 +80,14 @@ function serviceUpNot {
 		fi
 	fi
 	echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function userExists {
     local user=$1
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(grep "$user:x:" /etc/passwd)
@@ -95,14 +95,14 @@ function userExists {
         ret "true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function userExistsNot {
     local user=$1
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(grep "$user:x:" /etc/passwd)
@@ -110,15 +110,15 @@ function userExistsNot {
         ret="false"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function userInGroup {
     local user=$1
     local group=$2
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(grep -E "$group:x:[0-9]+:?+$user?+" /etc/passwd)
@@ -126,15 +126,15 @@ function userInGroup {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function userInGroupNot {
     local user=$1
     local group=$2
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(grep -E "$group:x:[0-9]+:?+$user?+" /etc/passwd)
@@ -142,13 +142,13 @@ function userInGroupNot {
         ret="false"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function firewallUp {
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$1
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     ufw status | while read line; do
@@ -157,13 +157,13 @@ function firewallUp {
         fi
     done
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function firewallUpNot {
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$1
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     ufw status | while read line; do
@@ -172,15 +172,15 @@ function firewallUpNot {
         fi
     done
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function passwordChanged {
     local user=$1
     local time=$2
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     chage -l $user | while read line; do
@@ -189,15 +189,15 @@ function passwordChanged {
         fi
     done
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function passwordChangedNot {
     local user=$1
     local time=$2
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     chage -l $user | while read line; do
@@ -206,13 +206,13 @@ function passwordChangedNot {
         fi
     done
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function guestDisabledLDM {
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$1
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     disabled=$(grep -iE "allow-guest.?+=.?+false" /etc/lightdm/lightdm.conf)
@@ -220,13 +220,13 @@ function guestDisabledLDM {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function guestDisabledLDMNot {
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$1
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     disabled=$(grep -iE "allow-guest.?+=.?+false" /etc/lightdm/lightdm.conf)
@@ -234,14 +234,14 @@ function guestDisabledLDMNot {
         ret="false"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function kernelVersion {
     local wantVer=$1
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     curVer=$(uname -r)
@@ -249,13 +249,13 @@ function kernelVersion {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function autoCheckUpdatesEnabled {
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$1
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     check=$(grep -E '.*?APT::Periodic::Update-Package-Lists.*"1"' /etc/apt/apt.conf.d/20auto-upgrades)
@@ -263,15 +263,15 @@ function autoCheckUpdatesEnabled {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function permissionIs {
     local package=$1
     local permission=$2
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     octal=$(stat -c "%a %n" | grep -E "[0-9]+")
@@ -279,15 +279,15 @@ function permissionIs {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function permissionIsNot {
     local file=$1
     local permission=$2
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     octal=$(stat -c "%a %n" $file | grep -E "[0-9]+")
@@ -295,7 +295,7 @@ function permissionIsNot {
         ret="false"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function firefoxSetting {
@@ -304,7 +304,7 @@ function firefoxSetting {
     local value=$3
     local ret="false"
     local message=$4
-    if [ "$message" == "" ]; then
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     find /home -type f -name prefs.js | while read file; do
@@ -315,7 +315,7 @@ function firefoxSetting {
         fi
     done
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function firefoxSettingNot {
@@ -324,7 +324,7 @@ function firefoxSettingNot {
     local value=$3
     local ret="true"
     local message=$4
-    if [ "$message" == "" ]; then
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     find /home -type f -name prefs.js | while read file; do
@@ -335,14 +335,14 @@ function firefoxSettingNot {
         fi
     done
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function pathExists {
     local path=$1
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(find $path)
@@ -350,14 +350,14 @@ function pathExists {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function pathExistsNot {
     local path=$1
     local ret="true"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$2
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(find $path)
@@ -365,15 +365,15 @@ function pathExistsNot {
         ret="false"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function fileContains {
     local contains=$1
     local file=$2
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     exists=$(grep -E "$contains" $file)
@@ -381,27 +381,28 @@ function fileContains {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function fileContainsNot {
     local contains=$1
     local file=$2
-    local ret=$ftrue
+    local ret="true"
+    local message=$3
     exists=$(grep -E "$contains" $file)
     if $exists; then
         ret="false"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }
 
 function fileEquals {
     local ogHash=$1
     local file=$2
     local ret="false"
-    local message=$4
-    if [ "$message" == "" ]; then
+    local message=$3
+    if [ "$message" == null ]; then
         message="Vulnerablilty check passed"
     fi
     hash=$(md5sum $file | grep -E "[0-9]+")
@@ -409,5 +410,5 @@ function fileEquals {
         ret="true"
     fi
     echo "$ret"
-    echo "$message"
+    # echo "$message"
 }

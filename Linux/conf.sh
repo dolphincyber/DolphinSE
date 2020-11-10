@@ -4,4 +4,9 @@
 function scoredVulns {
     vuln1=$(packageInstalled "chkrootkit", "Package chkrootkit has been installed")
 }
-exit
+
+function checkVulns {
+    echo "$vuln1"
+}
+
+scoredVulns

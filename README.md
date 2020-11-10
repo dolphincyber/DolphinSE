@@ -91,11 +91,11 @@ function scoredVulns {
     vuln15=$(permissionIsNot "/file1" "777")
     vuln16=$(firefoxSetting "lockPref" "browser\.download\.dir" "\~\/Downloads")
     vuln17=$(firefoxSettingNot "lockPref" "browser\.shell\.checkDefaultBrowser" "true")
-    vuln18=$(pathExists "/file1")
-    vuln19=$(pathExistsNot "/file2")
-    vuln20=$(fileContains "this\.is\.an\.example.*?=.*?config" "/file1")
-    vuln21=$(fileContainsNot "this.+?should\.not\\be.*?=.*?here" "/file1")
+    vuln18=$(pathExists "/file1" "File file1 exisst")
+    vuln19=$(pathExistsNot "/file2" "File file2 does not exist" "file2 does not exist")
+    vuln20=$(fileContains "this\.is\.an\.example.*?=.*?config" "/file1" "File1 contains security configurations")
+    vuln21=$(fileContainsNot "this.+?should\.not\\be.*?=.*?here" "/file1" "File1 does not contain bad configurations")
     vuln22=$(fileEquals "85e07e80be1ed41f1b96babb01d1f97e" "/file1")
 }
 ```
-**NO MESSAGES WERE SPECIFIED FOR THE CONFIGURATION ABOVE** This will make the score report default to "Vulnerability Check Passed"
+**SOME CONFIGURATIONS HAD NO SPECIFIED MESSAGE** Once again, this will make the score report default to "Vulnerability Check Passed"
