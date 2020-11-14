@@ -2,6 +2,8 @@
 
 user=dolphin
 
+sudo apt-get --reinstall install libnotify-bin notify-osd
+
 echo "[Unit]" > /etc/init.d/DolphinSE.service
 echo "Description=DolphinSE" >> /etc/init.d/DolphinSE.service
 echo "[Service]" >> /etc/init.d/DolphinSE.service

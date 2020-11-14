@@ -13,10 +13,10 @@ function checks {
 function alert {
     if [ "$vulns" -gt "$prevVulns" ]; then
         play -q ./assets/mp3/gain.mp3
-        notify-send -i "./assets/img/icon.ico" "You gained points!"
+        notify-send "DolphinSE" "You gained points!"
     elif [ "$vulns" -lt "$prevVulns" ]; then
-        rhythmbox-client --play ./assets/mp3/warn.mp3
-        play -q "./assets/img/icon.ico" "You lost points!"
+        play -q ./assets/mp3/warn.mp3
+        notify-send "DolphinSE" "You lost points!"
     fi
 }
 
