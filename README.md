@@ -1,10 +1,10 @@
 # DolphinSE
 Vulnerability scoring system for cybersecurity training.
 
-> written in powershell and shell script by DolphinCyber
+> written in shell script by DolphinCyber
 
 # Configuration
-### Put configurations for linux in ./Linux/conf.sh and configurations for windows in ./Windows/scoring.conf
+### Put configurations for linux in ./Linux/conf.sh
 ### Linux configurations
 
 > **note** If you leave the message blank, it will default to "Vulnerability Check Passed"
